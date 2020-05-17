@@ -47,6 +47,7 @@ namespace ScraperAPI {
 
       $headers = $options['headers'] ?: [];
       $country_code = $options['country_code'];
+      $device_type = $options['device_type'];
       $premium = $options['premium'] ?: false;
       $render = $options['render'] ?: false;
       $session_number = $options['session_number'];
@@ -54,7 +55,9 @@ namespace ScraperAPI {
       $retry = $options['retry'] ?: 3;
       $timeout = $options['timeout'] ?: 60;
 
-      $query = array("country_code" => $country_code,
+      $query = array(
+        "country_code" => $country_code,
+        "$device_type" => $device_type,
         "api_key" => $this->api_key,
         "premium" => $premium,
         "render" => $render,
