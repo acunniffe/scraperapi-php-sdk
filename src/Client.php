@@ -1,9 +1,12 @@
 <?php
+declare(strict_types=1);
+
 namespace ScraperAPI;
 
 use Exception;
 use Unirest\Method;
 use Unirest\Request;
+use function count;
 
 /**
  * Class Client
@@ -77,19 +80,17 @@ class Client
      */
     private function scrape($url, $method, $options = [], $body)
     {
-        $headers = $options['headers'] ?: [];
-        $countryCode = $options['country_code'];
-        $deviceType = $options['device_type'];
-        $premium = $options['premium'] ?: false;
-        $render = $options['render'] ?: false;
-        $sessionNumber = $options['session_number'];
-        $autoparse = $options['autoparse'] ?: false;
-        $retry = $options['retry'] ?: 3;
-        $timeout = $options['timeout'] ?: 60;
+        $headers = $options['headers'] ?? [];
+        $countryCode = $options['country_code'] ?? '';
+        $premium = $options['premium'] ?? false;
+        $render = $options['render'] ?? false;
+        $sessionNumber = $options['session_number'] ?? '';
+        $autoparse = $options['autoparse'] ?? false;
+        $retry = $options['retry'] ?? 3;
+        $timeout = $options['timeout'] ?? 60;
 
         $query = [
             'country_code' => $countryCode,
-            "$deviceType" => $deviceType,
             'api_key' => $this->apiKey,
             'premium' => $premium,
             'render' => $render,
