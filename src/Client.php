@@ -1,7 +1,9 @@
 <?php
 namespace ScraperAPI {
-  require_once 'mashape/unirest-php/src/Unirest.php';
-  use Unirest;
+
+    use Unirest\Method;
+    use Unirest\Request;
+
   class Client
   {
     public $api_key;
@@ -14,26 +16,26 @@ namespace ScraperAPI {
     public function get($url,
                         $options = [])
     {
-      return $this->scrape($url, Unirest\Method::GET, $options, null);
+      return $this->scrape($url, Method::GET, $options, null);
     }
 
     public function post($url,
                          $options = [],
                          $body)
     {
-      return $this->scrape($url, Unirest\Method::POST, $options, $body);
+      return $this->scrape($url, Method::POST, $options, $body);
     }
 
     public function put($url,
                         $options = [],
                         $body)
     {
-      return $this->scrape($url, Unirest\Method::PUT, $options, $body);
+      return $this->scrape($url, Method::PUT, $options, $body);
     }
 
     public function account()
     {
-      $response = Unirest\Request::get('https://api.scraperapi.com/account', [], ["api_key" => $this->api_key]);
+      $response = Request::get('https://api.scraperapi.com/account', [], ["api_key" => $this->api_key]);
       return $response->body;
     }
 
@@ -82,13 +84,13 @@ namespace ScraperAPI {
         ARRAY_FILTER_USE_BOTH
       );
 
-      Unirest\Request::timeout($timeout);
+      Request::timeout($timeout);
 
       $queryString = http_build_query($filteredQuery);
       $scraperUrl = "http://api.scraperapi.com/?" . $queryString;
 
       $makeRequest = function () use ($headers, $body, $scraperUrl, $method) {
-        return Unirest\Request::send($method, $scraperUrl, $body, $headers);
+        return Request::send($method, $scraperUrl, $body, $headers);
       };
 
       return retryRequest(0, $makeRequest, $retry);
