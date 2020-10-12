@@ -42,8 +42,8 @@ class Client
 
     private function scrape($url, $method,  $options = [], $body = null)
     {
-
-
+        $baseOptions = ['headers' => null];
+        $options = array_merge($baseOptions, $options);
         $headers = $options['headers'] ?: [];
         $country_code = $options['country_code'];
         $device_type = $options['device_type'];
