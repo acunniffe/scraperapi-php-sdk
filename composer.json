@@ -3,6 +3,8 @@
     "description": "SDK for using ScraperAPI",
     "type": "library",
     "require": {
+        "php": "^7.0",
+        "mashape/unirest-php": "3.*"
     },
     "license": "MIT",
     "authors": [
