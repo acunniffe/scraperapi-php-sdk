@@ -103,14 +103,14 @@ namespace ScraperAPI {
     try {
       $response = $makeRequest();
       if ($response->code >= 500) {
-        throw new Exception('Could not reach ScraperAPI Proxy');
+        throw new \Exception('Could not reach ScraperAPI Proxy');
       }
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
       if ($try < $max) {
         sleep(1);
         $response = retryRequest($try + 1, $makeRequest, $max);
       } else {
-        throw new Exception('Failed to connect after ' . $max . ' attempts');
+        throw new \Exception('Failed to connect after ' . $max . ' attempts');
       }
     }
 
